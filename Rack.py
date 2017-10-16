@@ -12,6 +12,7 @@ class Rack:
         pass
 
     def makeBottle(self, tagstring):
+
         bottle = {}
         bottle['tags'] = []
         bottle['quantity'] = 1
@@ -19,8 +20,8 @@ class Rack:
         lowtags = tagstring.lower()
         listing = tagstring.split()
         for i in listing:
-            bottle['tags'].append(i)
-        bottle['name'] = tagstring
+            bottle['tags'].append(i.capitalize())
+        bottle['name'] = ' '.join(bottle['tags'])
         bottle['price'] = 0
         bottle['index'] = 0
         bottle['notes'] = []
