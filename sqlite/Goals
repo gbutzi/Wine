@@ -1,0 +1,25 @@
+Wines should be in a list. 
+
+Wine List: returns list of wine
+  Wine List <Grape>
+  Wine List <Vineyard>
+  Wine List <Grape> <Vineyard> 
+  
+  I want to give List a term and have it generate the proper query to find those wines.
+  In order to do that, I need to know column the term is.
+  I can set up a dictionary where each term is added to the dictionary; when List gets 
+  that term, it checks the dict to see what the proper column is. The dictionary should
+  be stored on disk so it doesn't disappear when Wine isn't running.
+
+  Dictionary should be a yaml file. When is the best time to read it into memory?
+    at boot? or at Wine invocation?
+
+Wine Drink <Bottle>: lowers quantity by one, asks for date. If you are now out, alerts you.
+
+Wine Thoughts <Bottle>: prints the dates on which the wine has been drunk, and the reviews.
+
+Wine Review <Bottle>: prompts you for thoughts on the bottle, adds to comments.
+
+Wine Add <Bottle>: prompts you for information on the bottle and adds it to the list.
+
+

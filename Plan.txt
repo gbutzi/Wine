@@ -1,0 +1,73 @@
+Bottle.py: The bottle class. Has an array that holds tags, plus an int for quantity and an array that holds reviews, plus an index.
+
+Rack.py: Stores a bunch of bottles in an array. 
+  * The rack should get written to a file. At the start of each operation, read the rack from 
+    the db. At the end of each operation, write it back. This will get me into trouble
+    at some point (since it is a lot of unnecessary disk i/o) but once I have something that
+    works I can work on optimizing it later.
+  * I should be able to search through the rack for bottles that match some subset of tags 
+    and get an array of matching bottles.
+  * I should have some interface for selecting particular bottles and performing operations
+    on them: changing quantity, drinking, etc.
+
+
+Interaction:
+
+$ wine add [tag list]
+  ## This adds a bottle of the description given. If that bottle is already in the rack,
+  ## it selects the bottle and displays it. If multiple bottles fit the tags, it displays
+  ## all the bottles it fits and lets me choose one.
+
+$ wine list [tag]
+  ## This should return a list of all the bottles with the tag or tag combination given.
+  ## From this list, I should be able to select and display a bottle.
+  ## '$ wine list' with no tags should list everything that is in the rack.
+
+$ wine drink [tag list]
+  ## select a bottle, or display a list and let me select. Prompt me for thoughts on the 
+  ## bottle, decrement the stock by 1, and write it to the db.
+
+$ wine delete [tag list]
+  ## select or list. Delete selection from the rack, write the rack to db.
+
+$ wine edit [tag list]
+  ## select or list. Let me add or remove stock, edit price.
+
+
+Bottle api:
+  Bottle.Bottle('tag string')
+
+  bottle.drink()
+
+  bottle.setIndex(index)
+
+  bottle.printTags()
+
+  bottle.compare(bottle)
+
+Rack api:
+  Rack.Rack()
+
+  rack.contains(bottle)
+
+  rack.addBottle(bottle)
+
+  rack.searchRack('tag string')
+
+  rack.select('tag string') #returns a Bottle or None
+
+  rack.delete('tag string')
+
+Open tasks:
+
+	* print the price, if price is not 0, when looking at a bottle
+	* Add a 'notes' section to a wine bottle. Print the notes when you look at the bottle, let people edit notes when they edit.
+
+long term refactoring:
+
+	* implement a way to look at multiple bottles at once
+	* implement a backup for the wine database so that if i accidentally nuke it while testing a refactor I'm not hosed
+	* holy shit figure out git and version control because goddamn
+
+	* there are probably some nasty bugs with deleting bottles so after refactor test that thoroughly.
+	* consider how to implement multiple racks
