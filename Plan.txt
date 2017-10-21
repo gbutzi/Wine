@@ -37,28 +37,7 @@ $ wine edit [tag list]
 *** my next refactor
 
 Bottle api:
-  Bottle.Bottle('tag string')
-
-  bottle.drink()
-
-  bottle.setIndex(index)
-
-  bottle.printTags()
-
-  bottle.compare(bottle)
-
 Rack api:
-  Rack.Rack()
-
-  rack.contains(bottle)
-
-  rack.addBottle(bottle)
-
-  rack.searchRack('tag string')
-
-  rack.select('tag string') #returns a Bottle or None
-
-  rack.delete('tag string')
 
 Open tasks:
   
@@ -72,6 +51,12 @@ Open tasks:
     a bottle from the relevant list. This also means that I'll have to implement
     the 'red' or 'white' tag, which i want to try and do mostly automatically by detecting
     grapes in the wine.
+
+  * Finish subclassing bottle as a dict and integrate it with Rack.py again
+
+  * Write a driver for Wine.py that checks to see if my current working directory is
+    refactor and if it is, execute the local version of Wine.py; otherwise, execute
+    the prod version. Fix my alias to the driver.
 
   * I want to be able to upload pictures of the wines and associate them with the bottles.
     This is probably a 2.0 feature that will require architecting it in a different way,
