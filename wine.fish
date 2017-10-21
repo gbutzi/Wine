@@ -2,10 +2,10 @@
 
 set dir (pwd)
 
-set args (getopt -s sh abc: $argv);
+set args $argv[1..-1]
 
-if dir == "/home/greg/Wine/refactor"
-    (./home/greg/Wine/refactor/Wine.py args)
+if test dir = "/home/greg/Wine/refactor"
+    command /home/greg/Wine/refactor/Wine.py $args
 else
-    (./home/greg/Wine/Wine.py args)  
+    command /home/greg/Wine/Wine.py $args
 end
