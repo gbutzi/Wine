@@ -33,6 +33,8 @@ $ wine delete [tag list]
 $ wine edit [tag list]
   ## select or list. Let me add or remove stock, edit price.
 
+*** The API here is super super out of date, should sit down and update this before starting
+*** my next refactor
 
 Bottle api:
   Bottle.Bottle('tag string')
@@ -59,15 +61,41 @@ Rack api:
   rack.delete('tag string')
 
 Open tasks:
+  
+  * redocument the api so that it's accurate.
+  * implement some functionality to make it clear what bottle of wine I'm looking
+    at or editing, QOL stuff.
 
-	* print the price, if price is not 0, when looking at a bottle
-	* Add a 'notes' section to a wine bottle. Print the notes when you look at the bottle, let people edit notes when they edit.
+  * Add the ability to tag wines as "saving for a special occasion" or "open whenever".
+    calling '$ wine next' will return a random bottle from the "open whenever" list.
+    You could also say '$wine next pinot noir' or 'wine next white' and it returns 
+    a bottle from the relevant list. This also means that I'll have to implement
+    the 'red' or 'white' tag, which i want to try and do mostly automatically by detecting
+    grapes in the wine.
+
+  * I want to be able to upload pictures of the wines and associate them with the bottles.
+    This is probably a 2.0 feature that will require architecting it in a different way,
+    but figure out how to do it.
+
 
 long term refactoring:
 
 	* implement a way to look at multiple bottles at once
+
 	* implement a backup for the wine database so that if i accidentally nuke it while testing a refactor I'm not hosed
+
 	* holy shit figure out git and version control because goddamn
 
 	* there are probably some nasty bugs with deleting bottles so after refactor test that thoroughly.
+
 	* consider how to implement multiple racks
+
+	* The sort functionality stuff in Rack.searchRack is kind of a hot mess; it works but it's very messy.
+	  would probably be worth cleaning that up at some point.
+
+ 	* I'm not crazy about how all the functionality is in Rack.py and Wine.py now; I'd really rather have a bottle class again. This will probably involve learning what builtin functions I need to implement so that Bottle.py acts like a
+	dictionary with some extra methods.
+
+	* Figure out some sort of configuration solution so that I can have stuff like wine db path in a config file and reference that instead of hardcoding it in the file.
+	
+	* Set up some sort of engine to identify tags as vineyards or grapes or whatever so that the name can be set in a specific order
