@@ -7,7 +7,7 @@ import sys
 
 class Wine:
 
-    path = '.wine.db'
+    path = '/home/greg/Wine/wine.db'
     affirm = ['y', 'yes', 'continue', 'YES', 'Yes', 'Y']
 
 

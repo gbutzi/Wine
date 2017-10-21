@@ -1,12 +1,12 @@
 import json
 import pdb
-import Bottle
+#import Bottle
 
 class Rack:
 
     rack = []
 
-    path = ".wine.db"
+    path = "/home/greg/Wine/.wine.db"
 
     def __init__(self):
         pass
