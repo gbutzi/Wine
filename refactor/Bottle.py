@@ -1,77 +1,51 @@
 import hashlib
 import pdb
-from json import JSONEncoder
 
-class Bottle(JSONEncoder):
+class Bottle(dict):
 
     #{"quantity": int, "index": int, "name": "a string", "review" = ["a list", "of strings"]}
 
-    stats = {}
-
     def __init__(self, tagstring):
-        self.stats['index'] = 0
-        self.stats['tags'] = []
-        self.stats['quantity'] = 1
-        self.stats['review'] = []
+        self['index'] = 0
+        self['tags'] = []
+        self['quantity'] = 0
+        self['review'] = []
         lowtags = tagstring.lower()
         listing = lowtags.split()
         for i in listing:
-            self.stats['tags'].append(i)
-        self.stats['name'] = tagstring
-        self.stats['price'] = 0
-
-        '''
-        self.index = 0
-        self.tags = []
-        self.quantity = 0
-        self.review = []
-        lowtags = tagstring.lower()
-        listing = lowtags.split()
-        for i in listing:
-            self.tags.append(i)
-        self.tags.sort()
-        self.name = tagstring
-        self.quantity += 1
-        self.index = 0
-        self.price = 0
-        '''
-
-    def default(self):
-        return stats
-
-    def from_json(json_object):
-        bottle = Bottle("")
-        for i in json_object:
-            bottle[i] = json_object[i]
-        
-        return bottle
+            self['tags'].append(i)
+        self['tags'].sort()
+        self['name'] = tagstring
+        self['quantity'] += 1
+        self['index']= 0
+        self['price'] = 0
 
     def drink(self):
-        self.stats['quantity'] -= 1
+        self['quantity'] -= 1
         print("What do you think?")
         thoughts = input()
         print("What is the date?")
         date = input()
         r = date + ": " + thoughts
-        self.stats['review'].append(r)
+        self['review'].append(r)
 
     def setIndex(self, i):
-        self.stats['index'] = i
+        self['index'] = i
 
     def printTags(self):
-        for i in self.stats['tags']:
+        for i in self['tags']:
             print(i)
 
     def view(self):
-        print(self.stats['name'])
-        print("In Stock: " + str(self.stats['quantity']))
-        for i in self.stats['review']:
+        print(self['name'])
+        print("In Stock: " + str(self['quantity']))
+        for i in self['review']:
             print(i)
 
     def __eq__(self, bottle):
         if not isinstance(bottle, Bottle): return False
-        selftags = ' '.join(sorted(self.stats['tags']))
-        cmptags = ' '.join(sorted(bottle.stats['tags']))
+        selftags = ' '.join(sorted(self['tags']))
+        cmptags = ' '.join(sorted(bottle['tags']))
 
         sHasher = hashlib.sha256()
         cHasher = hashlib.sha256()
@@ -95,17 +69,17 @@ class Bottle(JSONEncoder):
         choice = input()
         if len(choice) == 0:
             return None
-        elif choice == 'quantity' or '1':
+        elif choice == 'quantity' or choice == '1':
             print("Change quantity to what?")
-            self.stats['quantity'] = int(input())
-            print("Quantity is now " + str(self.stats['quantity']))
-        elif choice == 'review' or '2':
+            self['quantity'] = int(input())
+            print("Quantity is now " + str(self['quantity']))
+        elif choice == 'review' or choice == '2':
             print("What do you think?")
             thoughts = input()
             print("What is the date?")
             date = input()
             r = date + ": " + thoughts
-            self.stats['review'].append(r)
+            self['review'].append(r)
         else:
             return None
 
