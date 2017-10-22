@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import Rack
+import Rack2
 import Bottle
 import json
 import pdb
@@ -18,7 +18,7 @@ class Wine:
     def load(self):
         with open(self.path, 'r') as f:
             rackList = json.load(f)
-            rack = Rack.Rack()
+            rack = Rack2.Rack()
             rack.convert(rackList)
             return rack
 
@@ -27,7 +27,7 @@ class Wine:
             json.dump(rack.Rack, f)
 
     def destroy(self):
-        c = Rack.Rack()
+        c = Rack2.Rack()
         self.write(c)
 
     def add(self, taglist):
@@ -110,7 +110,9 @@ if __name__ == '__main__':
         Wine().add(taglist)
     elif sys.argv[1] == 'drink':
         Wine().drink(taglist)
-    elif sys.argv[1] == 'look' or sys.argv[1] == 'list':
+    elif sys.argv[1] == 'list':
+        Wine().list()
+    elif sys.argv[1] == 'look':
         if len(sys.argv) == 2:
             Wine().list()
         else:

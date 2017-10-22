@@ -1,82 +1,95 @@
-#!/usr/bin/python3 
+#!/usr/bin/python3
 import Rack
-#import Bottle
-import json 
+import Bottle
+import json
 import pdb
 import sys
 
 class Wine:
 
-    path = '.wine.rf.db'
+    path = '.wine.db'
     affirm = ['y', 'yes', 'continue', 'YES', 'Yes', 'Y']
 
-
-    # Wine.py is meant to be a driver for Rack and Bottle.
+    # Wine.py is meant to be a driver for Rack and Bottle
 
     def __init__(self):
         pass
 
-    def add(self, taglist):
-        # create a bottle from the taglist. Add the bottle to the rack.
-        # if a bottle or bottles fits the taglist given, display
-        # the list and prompt me to select a bottle.
+    def load(self):
+        with open(self.path, 'r') as f:
+            rackList = json.load(f)
+            rack = Rack.Rack()
+            rack.convert(rackList)
+            return rack
 
-        rack = Rack.Rack()
-        newBottle = rack.makeBottle(taglist)
-
-        rack.addBottle(newBottle)
-        
-    def drink(self, taglist):
-        rack = Rack.Rack()
-        openBottle = rack.select(taglist)
-        rack.drink(openBottle)
-        rack.setIndices(rack.rack)
-        json.dump(self.rack, open(self.path, 'w'))
-
-
-    def list(self):
-        rack = Rack.Rack()
-        rack.printRack()
-
-    def delete(self, taglist):
-        rack = Rack.Rack()
-        rack.delete(taglist)
-
-    def look(self, taglist):
-        rack = Rack.Rack()
-        selectedBottle = rack.select(taglist)
-        rack.view(selectedBottle)
+    def write(self, rack):
+        with open(self.path, 'w') as f:
+            json.dump(rack.Rack, f)
 
     def destroy(self):
-        c = []
-        with open(self.path, "w") as f:
-            json.dump(c, open(self.path, 'w'))
+        c = Rack.Rack()
+        self.write(c)
 
-    def edit(self, taglist):
-        rack = Rack.Rack()
+    def add(self, taglist):
+        rack = self.load()
+        newBottle = Bottle.Bottle(taglist)
+        rack.add(newBottle)
+        self.write(rack)
+
+    def drink(self, taglist):
+        rack = self.load()
+        bottle = rack.select(taglist)
+        if bottle is not None:
+            bottle.drink()
+            self.write(rack)
+        else:
+            print("That bottle isn't in the rack")
+
+    def list(self):
+        rack = self.load()
+        rack.printRack()
+    
+    def delete(self, taglist):
+        rack = self.load()
+        rack.delete(taglist)
+        self.write(rack)
+
+    def look(self, taglist):
+        rack = self.load()
         selectedBottle = rack.select(taglist)
+        if selectedBottle is not None:
+            selectedBottle.view()
+        else:
+            print("That bottle isn't in the rack")
+    
+    def edit(self, taglist):
+        rack = self.load()
+        selectedBottle = rack.select(taglist)
+        if selectedBottle is None:
+            print("That bottle isn't in the rack")
+            return None
         while 1:
-            rack.editBottle(selectedBottle)
+            selectedBottle.edit()
             print("Continue editing? [Y/N}")
             choice = input()
             if choice not in self.affirm:
                 break
-        json.dump(rack.rack, open(self.path, 'w'))
-
+        self.write(rack)
 
 if __name__ == '__main__':
     '''
     wine = Wine()
-    wine.add("ancien 2012 pinot noir")
-    wine.add("ancien chardonnay 2013")
-    wine.add("ancien pinot noir 2012")
-
-    #pdb.set_trace()
-    wine.list()
-
-    wine.drink("ancien 2012 pinot noir")
-    wine.look("ancien 2012 pinot noir")
-    wine.delete("chardonnay")
+    wine.destroy()
+    wine.add("a sample bottle")
+    wine.drink("bottle")
+    wine.edit("sample")
+    wine.look("a")
+    wine.add("a sample bottle")
+    wine.add("a different bottle")
+    wine.delete("bottle")
+    wine.drink("not here")
+    wine.edit("not here")
+    wine.delete("not here")
     wine.list()
     '''
 
@@ -89,7 +102,6 @@ if __name__ == '__main__':
         print("'wine edit list of tags' will select the bottle listed and let you edit it")
         print("'wine destroy' will delete the rack permanently. Don't do this.")
 
-
     taglist = ' '.join(sys.argv[2:])
 
     if len(sys.argv) <= 1:
@@ -98,15 +110,13 @@ if __name__ == '__main__':
         Wine().add(taglist)
     elif sys.argv[1] == 'drink':
         Wine().drink(taglist)
-    elif sys.argv[1] == 'list':
-        Wine().list()
-    elif sys.argv[1] == 'delete':
-        Wine().delete(taglist)
-    elif sys.argv[1] == 'look':
+    elif sys.argv[1] == 'look' or sys.argv[1] == 'list':
         if len(sys.argv) == 2:
             Wine().list()
         else:
             Wine().look(taglist)
+    elif sys.argv[1] == 'delete':
+        Wine().delete(taglist)
     elif sys.argv[1] == 'destroy':
         print("This will destroy the database. Are you sure? [Y/N]")
         choice = input()

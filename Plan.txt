@@ -40,6 +40,12 @@ Bottle api:
 Rack api:
 
 Open tasks:
+
+  * wine edit and drink isn't actually saving?
+
+  * write a "load" and "save" function to centralize that functionality.
+
+  * tag searching should be case independent
   
   * redocument the api so that it's accurate.
   * implement some functionality to make it clear what bottle of wine I'm looking
@@ -54,10 +60,6 @@ Open tasks:
 
   * Finish subclassing bottle as a dict and integrate it with Rack.py again
 
-  * Write a driver for Wine.py that checks to see if my current working directory is
-    refactor and if it is, execute the local version of Wine.py; otherwise, execute
-    the prod version. Fix my alias to the driver.
-
   * I want to be able to upload pictures of the wines and associate them with the bottles.
     This is probably a 2.0 feature that will require architecting it in a different way,
     but figure out how to do it.
@@ -66,6 +68,7 @@ Open tasks:
 long term refactoring:
 
 	* implement a way to look at multiple bottles at once
+
 
 	* implement a backup for the wine database so that if i accidentally nuke it while testing a refactor I'm not hosed
 

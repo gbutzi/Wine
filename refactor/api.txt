@@ -1,0 +1,33 @@
+Bottle.py API
+
+  Bottle.Bottle("a string of words")
+      returns a bottle dictionary with attributes set.
+
+  Bottle.drink()
+  
+  Bottle.setIndex(index)
+
+  Bottle.printTags()
+
+  Bottle.view()
+
+  Bottle.edit()
+
+Rack.py API
+
+  Rack.setIndices(rack)
+
+  Rack.contains(bottle)
+      returns True or False
+
+  Rack.addBottle(bottle)
+  
+  Rack.searchRack("a list of tags")
+      returns a frozenset
+
+  Rack.select("a list of tags")
+      returns Bottle or None
+
+  Rack.delete("a list of tags")
+
+  Rack.printRack()
