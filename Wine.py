@@ -102,27 +102,27 @@ if __name__ == '__main__':
         print("'wine edit list of tags' will select the bottle listed and let you edit it")
         print("'wine destroy' will delete the rack permanently. Don't do this.")
 
-    taglist = ' '.join(sys.argv[2:])
+    taglist = str.lower(' '.join(sys.argv[2:]))
 
     if len(sys.argv) <= 1:
         help()
-    elif sys.argv[1] == 'add':
+    elif sys.argv[1] == 'add' and len(sys.argv) >= 3:
         Wine().add(taglist)
-    elif sys.argv[1] == 'drink':
+    elif sys.argv[1] == 'drink' and len(sys.argv) >= 3:
         Wine().drink(taglist)
     elif sys.argv[1] == 'look' or sys.argv[1] == 'list':
         if len(sys.argv) == 2:
             Wine().list()
         else:
             Wine().look(taglist)
-    elif sys.argv[1] == 'delete':
+    elif sys.argv[1] == 'delete' and len(sys.argv) >= 3:
         Wine().delete(taglist)
     elif sys.argv[1] == 'destroy':
         print("This will destroy the database. Are you sure? [Y/N]")
         choice = input()
         if choice == 'y' or choice == 'Y' or choice == 'yes' or choice == 'Yes':
             Wine().destroy()
-    elif sys.argv[1] == 'edit' or sys.argv[1] == 'select':
+    elif sys.argv[1] == 'edit' or sys.argv[1] == 'select' and len(sys.argv) >= 3:
         Wine().edit(taglist)
     else:
         help()
