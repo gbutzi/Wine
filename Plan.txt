@@ -40,8 +40,6 @@ Bottle api:
 Rack api:
 
 Open tasks:
-
-  * tag searching should be case independent
   
   * redocument the api so that it's accurate.
   * implement some functionality to make it clear what bottle of wine I'm looking
@@ -57,6 +55,9 @@ Open tasks:
   * I want to be able to upload pictures of the wines and associate them with the bottles.
     This is probably a 2.0 feature that will require architecting it in a different way,
     but figure out how to do it.
+
+  * Add the ability to '$ list historical' which prints every wine, then change list and select
+    to only show wines in stock by default
 
 
 long term refactoring:
