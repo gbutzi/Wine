@@ -76,6 +76,13 @@ class Wine:
                 break
         self.write(rack)
 
+    def next(self, *tags):
+        rack = self.load()
+        taglist = tags[0]
+        selectedBottle = rack.next(taglist)
+        if selectedBottle is not None:
+            selectedBottle.view()
+
 if __name__ == '__main__':
     '''
     wine = Wine()
@@ -124,5 +131,7 @@ if __name__ == '__main__':
             Wine().destroy()
     elif sys.argv[1] == 'edit' or sys.argv[1] == 'select' and len(sys.argv) >= 3:
         Wine().edit(taglist)
+    elif sys.argv[1] == 'next':
+        Wine().next(taglist)
     else:
         help()

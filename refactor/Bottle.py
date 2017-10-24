@@ -74,12 +74,13 @@ class Bottle(dict):
 
     def edit(self):
         print("What would you like to edit?")
-        print("1: quantity")
-        print("2: review")
-        print("3: price")
-        print("4: notes")
+        print("1: Quantity")
+        print("2: Review")
+        print("3: Price")
+        print("4: Notes")
+        print("5: Scheduled Opening")
         print("Or press enter to exit")
-        choice = input()
+        choice = str.lower(input())
         if len(choice) == 0:
             return None
         elif choice == 'quantity' or choice == '1':
@@ -101,6 +102,17 @@ class Bottle(dict):
             print("Enter a note about the wine!")
             note = input()
             self['notes'].append(note)
+        elif choice == 'schedule' or choice == '5':
+            print("Is this wine drinkable at any time? [Y/N]")
+            choice = input()
+            if choice == 'Y' or choice == 'y':
+                self['tags'].append("drinkable")
+            else:
+                print("What occasion are you saving this bottle for?")
+                occasion = str.lower(input())
+                if 'drinkable' in self['tags']:
+                    self['tags'].remove('drinkable')
+                self['tags'].append(occasion)
         else:
             return None
 

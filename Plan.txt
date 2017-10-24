@@ -45,14 +45,9 @@ Open tasks:
   * implement some functionality to make it clear what bottle of wine I'm looking
     at or editing, QOL stuff.
 
-  * Add the ability to tag wines as "saving for a special occasion" or "open whenever".
-    calling '$ wine next' will return a random bottle from the "open whenever" list.
-    You could also say '$wine next pinot noir' or 'wine next white' and it returns 
-    a bottle from the relevant list. This also means that I'll have to implement
-    the 'red' or 'white' tag, which i want to try and do mostly automatically by detecting
-    grapes in the wine.
+  * Fix the "pinot noir/pinot grigio" bug in wine next
 
-  * I want to be able to upload pictures of the wines and associate them with the bottles.
+   I want to be able to upload pictures of the wines and associate them with the bottles.
     This is probably a 2.0 feature that will require architecting it in a different way,
     but figure out how to do it.
 
