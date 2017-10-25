@@ -47,9 +47,24 @@ Open tasks:
 
   * Fix the "pinot noir/pinot grigio" bug in wine next
 
-   I want to be able to upload pictures of the wines and associate them with the bottles.
+  * Set up multiple racks. This will let me do a few things:  
+      * Have a "History" rack that I move bottles to when I have none of them left
+      * Have a "Current" rack that is only for wines I can open at any time
+      * Have a "Long Term Storage" rack that is for wines I am laying down
+      
+      * I'll want to automate moving wines from current or lts to history,  
+        and be able to split wines between current and lts etc.
+
+  *I want to be able to upload pictures of the wines and associate them with the bottles.
     This is probably a 2.0 feature that will require architecting it in a different way,
     but figure out how to do it.
+
+      * Okay, so crazy idea: I set up an email account somewhere that I can read with python.
+        I have a whitelist of "From" addresses where I parse the email, which contains a picture
+        and a list of tags. Then I can snap a photo with my phone, add some tags, email it to 
+        the tracker, and have a cron job that checks the account every N minutes, downloads 
+        the photo, and adds the wine. Will need to figure out how to properly verify emails
+        if i do this because oh god.
 
   * Add the ability to '$ list historical' which prints every wine, then change list and select
     to only show wines in stock by default
